@@ -1,0 +1,11 @@
+{
+  "name": "wows-compare",
+  "version": "1.0.0",
+  "description": "compare World of Warships, ship parameters by ship group",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC"
+}

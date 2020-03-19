@@ -18,29 +18,89 @@
     <title></title>
   </head>
   <body>
-    <h1>static files are served</h1>
-    <h1>D3.JS is insane! </h1>
-    <h2>pressure oriented, data retention interation, color coded heat map, 3 dimensional relational map "graph" lol</h2>
-    <svg width="960" height="600"></svg>
+    <h1>static files are served, implimenting data to chart</h1>
+    <!-- <h1>D3.JS is insane! </h1>
+    <h2>pressure oriented, data retention interation, color coded heat map, 3 dimensional relational map "graph" lol</h2> -->
+    <script>
+      // Create a request variable and assign a new XMLHttpRequest object to it.
+      var request = new XMLHttpRequest()
+
+      // Open a new connection, using the GET request on the URL endpoint
+      request.open('GET', '/api/ships', true)
+
+      request.onload = function(json) {
+        // Begin accessing JSON data here
+        console.log(json.target.response)
+      }
+
+      // Send request
+      request.send()
+    </script>
     <canvas id="myChart" width="400" height="400"></canvas>
     <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
     <script>
+      var names = ["Arashi", "[Shimakaze]", "AL Yukikaze", "HSF Harekaze", "Shinonome", "Asashio B", "Asashio", "Hayate", "Yūdachi", "Kitakaze", "Harugumo", "Yūgumo", "Kagerō", "Shiratsuyu", "Hatsuharu", "Akizuki", "Akatsuki", "Fubuki", "Mutsuki", "Kamikaze R", "Kamikaze", "Wakatake", "Fūjin", "Tachibana Lima", "Shimakaze", "Minekaze", "Isokaze", "Umikaze", "Tachibana"];
+      var concealments = [6.8, 7.1, 6.8, 6.8, 7, 6.8, 6.8, 7.7, 7, 7.6, 7.9, 7, 6.8, 6.7, 6.7, 7.8, 7.4, 7, 6.2, 6.2, 6.2, 6.1, 6.2, 5.4, 7.1, 6.2, 6.1, 5.6, 5.4];
       var ctx = document.getElementById('myChart');
-      var chart = new Chart(ctx, {
-          type: 'line',
-          data: {
-              labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
-              datasets: [{
-                  label: 'poopy pants',
-                  backgroundColor: 'rgb(255, 99, 132)',
-                  borderColor: 'rgb(255, 99, 132)',
-                  data: [0, 10, 5, 2, 20, 30, 45]
-              }]
-          },
-          options: {}
+      var mixedChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            datasets: [{
+                label: 'Bar Dataset',
+                data: concealments,
+                // this dataset is drawn below
+                order: 1
+            }, {
+                label: 'Line Dataset',
+                data: concealments,
+                type: 'line',
+                // this dataset is drawn on top
+                order: 2
+            }],
+            labels: names
+          }
       });
+      var data =
+    [
+{"name":"Arashi","default_profile":{"concealment":{"total":91,"detect_distance_by_plane":3.1,"detect_distance_by_ship":6.8}}},
+{"name":"[Shimakaze]","default_profile":{"concealment":{"total":89,"detect_distance_by_plane":3.4,"detect_distance_by_ship":7.1}}},
+{"name":"AL Yukikaze","default_profile":{"concealment":{"total":91,"detect_distance_by_plane":3.1,"detect_distance_by_ship":6.8}}},
+{"name":"HSF Harekaze","default_profile":{"concealment":{"total":91,"detect_distance_by_plane":3.1,"detect_distance_by_ship":6.8}}},
+{"name":"Shinonome","default_profile":{"concealment":{"total":91,"detect_distance_by_plane":3,"detect_distance_by_ship":7}}},
+{"name":"Asashio B","default_profile":{"concealment":{"total":91,"detect_distance_by_plane":3,"detect_distance_by_ship":6.8}}},
+{"name":"Asashio","default_profile":{"concealment":{"total":91,"detect_distance_by_plane":3,"detect_distance_by_ship":6.8}}},
+{"name":"Hayate","default_profile":{"concealment":{"total":86,"detect_distance_by_plane":3.8,"detect_distance_by_ship":7.7}}},
+{"name":"Yūdachi","default_profile":{"concealment":{"total":91,"detect_distance_by_plane":3,"detect_distance_by_ship":7}}},
+{"name":"Kitakaze","default_profile":{"concealment":{"total":87,"detect_distance_by_plane":3.5,"detect_distance_by_ship":7.6}}},
+{"name":"Harugumo","default_profile":{"concealment":{"total":84,"detect_distance_by_plane":4.2,"detect_distance_by_ship":7.9}}},
+{"name":"Yūgumo","default_profile":{"concealment":{"total":90,"detect_distance_by_plane":3.1,"detect_distance_by_ship":7}}},
+{"name":"Kagerō","default_profile":{"concealment":{"total":91,"detect_distance_by_plane":3.1,"detect_distance_by_ship":6.8}}},
+{"name":"Shiratsuyu","default_profile":{"concealment":{"total":92,"detect_distance_by_plane":2.8,"detect_distance_by_ship":6.7}}},
+{"name":"Hatsuharu","default_profile":{"concealment":{"total":92,"detect_distance_by_plane":2.8,"detect_distance_by_ship":6.7}}},
+{"name":"Akizuki","default_profile":{"concealment":{"total":86,"detect_distance_by_plane":3.5,"detect_distance_by_ship":7.8}}},
+{"name":"Akatsuki","default_profile":{"concealment":{"total":89,"detect_distance_by_plane":3,"detect_distance_by_ship":7.4}}},
+{"name":"Fubuki","default_profile":{"concealment":{"total":91,"detect_distance_by_plane":3,"detect_distance_by_ship":7}}},
+{"name":"Mutsuki","default_profile":{"concealment":{"total":94,"detect_distance_by_plane":2.5,"detect_distance_by_ship":6.2}}},
+{"name":"Kamikaze R","default_profile":{"concealment":{"total":94,"detect_distance_by_plane":2.5,"detect_distance_by_ship":6.2}}},
+{"name":"Kamikaze","default_profile":{"concealment":{"total":94,"detect_distance_by_plane":2.5,"detect_distance_by_ship":6.2}}},
+{"name":"Wakatake","default_profile":{"concealment":{"total":95,"detect_distance_by_plane":2,"detect_distance_by_ship":6.1}}},
+{"name":"Fūjin","default_profile":{"concealment":{"total":94,"detect_distance_by_plane":2.5,"detect_distance_by_ship":6.2}}},
+{"name":"Tachibana Lima","default_profile":{"concealment":{"total":98,"detect_distance_by_plane":1.9,"detect_distance_by_ship":5.4}}},
+{"name":"Shimakaze","default_profile":{"concealment":{"total":89,"detect_distance_by_plane":3.4,"detect_distance_by_ship":7.1}}},
+{"name":"Minekaze","default_profile":{"concealment":{"total":94,"detect_distance_by_plane":2.5,"detect_distance_by_ship":6.2}}},
+{"name":"Isokaze","default_profile":{"concealment":{"total":95,"detect_distance_by_plane":2.3,"detect_distance_by_ship":6.1}}},
+{"name":"Umikaze","default_profile":{"concealment":{"total":97,"detect_distance_by_plane":2.3,"detect_distance_by_ship":5.6}}},
+{"name":"Tachibana","default_profile":{"concealment":{"total":98,"detect_distance_by_plane":1.9,"detect_distance_by_ship":5.4}}}
+    ]
+
+    data.forEach( (ship) => {
+      names.push(ship.name);
+      concealments.push(ship.default_profile.concealment.detect_distance_by_ship);
+      console.log(concealments);
+    });
     </script>
-    <script src="https://d3js.org/d3.v5.min.js"></script>
+    <!-- <svg width="960" height="600"></svg> -->
+    <!-- <script src="https://d3js.org/d3.v5.min.js"></script>
     <div class = "myclass">
          Hello World!
       </div>
@@ -135,6 +195,6 @@ function dragended(d) {
   d.fx = null, d.fy = null;
 }
 
-</script>
+</script> -->
   </body>
 </html>
